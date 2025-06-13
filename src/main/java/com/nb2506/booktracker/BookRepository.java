@@ -19,4 +19,12 @@ public interface BookRepository {
      * @param book объект книги с обновлёнными данными
      */
     void update(Book book);
+
+    /**
+     * Удаляет существующую книгу из хранилище.
+     *
+     * @param book объект книги с обновлёнными данными
+     */
+    void delete(Book book);
+    
 }
