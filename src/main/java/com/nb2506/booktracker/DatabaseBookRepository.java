@@ -34,4 +34,14 @@ public class DatabaseBookRepository implements BookRepository {
     public void update(Book book) {
         DatabaseHelper.updateBook(book);
     }
+
+    /**
+     * Обновляет существующую книгу в базе данных.
+     *
+     * @param book объект книги с обновлёнными данными. Должен содержать корректный идентификатор.
+     */
+    @Override
+    public void deleteBookById(int id) {
+        DatabaseHelper.deleteBookById(book);
+    }
 }
