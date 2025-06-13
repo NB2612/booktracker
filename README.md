@@ -7,34 +7,36 @@
 Каждый класс должен иметь только одну ответственность и одну причину для изменения.
 
 В проекте класс `BookRepository` отвечает только за операции с данными книг — добавление, удаление, поиск.  
-```
+```java
 public interface BookRepository {
     void insert(Book book);
     void update(Book book);
     void delete(int id);
 }
+```
+
 Если объединить логику UI и работу с данными, например в `MainController`, класс станет сложным и нарушит SRP.
 
-```MainController.java
- private void onDeleteButton() {
-Book selectedBook = getSelectedBook();
-        if (selectedBook == null) {
-            showWarning("Удаление книги", "Пожалуйста, выберите книгу для удаления.");
-            return;
-        }
+```java
+private void onDeleteButton() {
+    Book selectedBook = getSelectedBook();
+    if (selectedBook == null) {
+        showWarning("Удаление книги", "Пожалуйста, выберите книгу для удаления.");
+        return;
+    }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Подтверждение удаления");
-        alert.setHeaderText("Вы действительно хотите удалить книгу \"" + selectedBook.getTitle() + "\"?");
-        alert.setContentText("Это действие необратимо.");
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Подтверждение удаления");
+    alert.setHeaderText("Вы действительно хотите удалить книгу \"" + selectedBook.getTitle() + "\"?");
+    alert.setContentText("Это действие необратимо.");
 
-        Optional<ButtonType> result = alert.showAndWait();
+    Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            DatabaseHelper.deleteBookById(selectedBook.getId());
-            updateListViewItems();
-            clearBookDetails();
-        }
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        DatabaseHelper.deleteBookById(selectedBook.getId());
+        updateListViewItems();
+        clearBookDetails();
+    }
 }
 public static void deleteBookById(int id) {
         String sql = "DELETE FROM books WHERE id = ?";
@@ -47,14 +49,41 @@ public static void deleteBookById(int id) {
             e.printStackTrace();
         }
     }
-
+```
 
 
 ### Open/Closed Principle (Принцип открытости/закрытости)
 
 Код открыт для расширения, но закрыт для модификации.
 
-Фильтрация книг реализована с возможностью добавлять новые фильтры без изменения базового кода — через паттерн Strategy (см. ниже).  
+Фильтрация книг реализована с возможностью добавлять новые фильтры без изменения базового кода — через паттерн Strategy.
+```java
+private void applyFilters() {
+    String selectedGenre = genreFilterComboBox.getValue();
+    if (selectedGenre == null) selectedGenre = "Все жанры";
+
+    String searchText = searchField.getText() != null
+            ? searchField.getText().toLowerCase().trim()
+            : "";
+
+    String finalSelectedGenre = selectedGenre;
+    filteredBooks.setPredicate(book -> {
+        if (book == null) return false;
+
+        List<String> genresList = book.getGenres() == null
+                ? List.of()
+                : Arrays.asList(book.getGenres().split(",\\s*"));
+
+        boolean matchesGenre = finalSelectedGenre.equals("Все жанры") || genresList.contains(finalSelectedGenre);
+
+        boolean matchesSearch = searchText.isEmpty()
+                || book.getTitle().toLowerCase().contains(searchText)
+                || book.getAuthor().toLowerCase().contains(searchText);
+
+        return matchesGenre && matchesSearch;
+    });
+}
+```
 Это позволяет расширять функциональность без риска поломать существующий код.
 
 ### Liskov Substitution Principle (Принцип подстановки Лисков)
@@ -76,14 +105,20 @@ public static void deleteBookById(int id) {
 
 Вместо создания экземпляров репозитория внутри контроллеров зависимости передаются через конструктор.  
 Это улучшает тестируемость и упрощает замену реализации.
-
----
-
-## Принцип YAGNI (You Aren't Gonna Need It)
-
-В проекте пока не реализуются сложные разделения интерфейсов и другие паттерны, которые не нужны по текущим требованиям.  
-Например, интерфейсное разделение репозитория пока не нужно.
-
+```java
+public Book(int id, String title, String author, int year, int pages,
+                double rating, String genres, int currentPage, byte[] cover) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.year = year;
+    this.pages = pages;
+    this.rating = rating;
+    this.genres = genres;
+    this.currentPage = currentPage;
+    this.cover = cover;
+}
+```
 ---
 
 ## Принцип DRY (Don't Repeat Yourself)
