@@ -1,0 +1,61 @@
+@startuml
+!theme plain
+
+left to right direction
+
+actor "Читатель" as Reader
+
+rectangle "Дневник чтения" {
+  usecase "Управлять книгами" as UC_ManageBooks
+  usecase "Добавить книгу" as UC_AddBook
+  usecase "Просмотреть список книг" as UC_ViewBooks
+  usecase "Просмотреть детали книги" as UC_ViewBookDetails
+  usecase "Редактировать книгу" as UC_EditBook
+  usecase "Удалить книгу" as UC_DeleteBook
+
+  usecase "Отслеживать прогресс чтения" as UC_TrackProgress
+  usecase "Установить статус чтения" as UC_SetStatus
+  usecase "Указать текущую страницу" as UC_SetPage
+
+  usecase "Управлять заметками" as UC_ManageNotes
+  usecase "Добавить заметку" as UC_AddNote
+  usecase "Просмотреть заметки" as UC_ViewNotes
+  usecase "Редактировать заметку" as UC_EditNote
+  usecase "Удалить заметку" as UC_DeleteNote
+
+  usecase "Искать книги" as UC_SearchBooks
+  usecase "Найти книгу" as UC_FindBook
+  usecase "Фильтровать книги" as UC_FilterBooks
+
+  usecase "Оценивать и сортировать книги" as UC_EvaluateSortBooks
+  usecase "Выставить оценку книге" as UC_RateBook
+  usecase "Сортировать список книг" as UC_SortBooks
+}
+
+Reader --> UC_ManageBooks
+Reader --> UC_TrackProgress
+Reader --> UC_ManageNotes
+Reader --> UC_SearchBooks
+Reader --> UC_EvaluateSortBooks
+
+UC_ManageBooks --> UC_AddBook : <<include>>
+UC_ManageBooks --> UC_ViewBooks : <<include>>
+UC_ManageBooks --> UC_ViewBookDetails : <<include>>
+UC_ManageBooks --> UC_EditBook : <<include>>
+UC_ManageBooks --> UC_DeleteBook : <<include>>
+
+UC_TrackProgress --> UC_SetStatus : <<include>>
+UC_TrackProgress --> UC_SetPage : <<include>>
+
+UC_ManageNotes --> UC_AddNote : <<include>>
+UC_ManageNotes --> UC_ViewNotes : <<include>>
+UC_ManageNotes --> UC_EditNote : <<include>>
+UC_ManageNotes --> UC_DeleteNote : <<include>>
+
+UC_SearchBooks --> UC_FindBook : <<include>>
+UC_SearchBooks --> UC_FilterBooks : <<include>>
+
+UC_EvaluateSortBooks --> UC_RateBook : <<include>>
+UC_EvaluateSortBooks --> UC_SortBooks : <<include>>
+
+@enduml

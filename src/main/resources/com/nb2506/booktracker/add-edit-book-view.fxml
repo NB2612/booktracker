@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="431.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nb2506.booktracker.AddEditBookController">
+   <MenuBar VBox.vgrow="NEVER">
+      <Menu mnemonicParsing="false" text="Файл">
+         <MenuItem mnemonicParsing="false" text="Созранить"/>
+         <SeparatorMenuItem mnemonicParsing="false"/>
+         <MenuItem mnemonicParsing="false" text="Отмена"/>
+      </Menu>
+   </MenuBar>
+   <HBox>
+      <VBox.margin>
+         <Insets top="5.0"/>
+      </VBox.margin>
+      <VBox prefHeight="383.0" prefWidth="348.0">
+         <HBox prefHeight="27.0" prefWidth="338.0">
+            <Label text="Название книги:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="titleField" prefHeight="25.0" prefWidth="246.0"/>
+         </HBox>
+         <HBox prefHeight="7.0" prefWidth="348.0">
+            <Label text="Автор:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <Label>
+               <HBox.margin>
+                  <Insets/>
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="authorField" prefHeight="25.0" prefWidth="297.0"/>
+         </HBox>
+         <HBox prefHeight="20.0" prefWidth="348.0">
+            <Label text="Год публикации:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <Label>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="yearField" prefHeight="25.0" prefWidth="100.0" promptText="1990"/>
+         </HBox>
+         <HBox prefHeight="16.0" prefWidth="348.0">
+            <Label text="Количество страниц:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <Label>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="pagesField" prefHeight="25.0" prefWidth="100.0" promptText="512"/>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="172.0" prefHeight="0.0" prefWidth="348.0">
+            <Label text="Страниц прочиатно">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="currentPageField" prefHeight="25.0" prefWidth="100.0"/>
+         </HBox>
+         <HBox prefHeight="0.0" prefWidth="348.0">
+            <Label text="Оценка:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <Label>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <TextField fx:id="ratingField" prefHeight="25.0" prefWidth="79.0" promptText="(от 0 до 10)"/>
+         </HBox>
+         <HBox prefHeight="27.0" prefWidth="71.0">
+            <Label text="Жанры:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </padding>
+            </Label>
+            <VBox fx:id="checkboxContainer" spacing="5"/>
+         </HBox>
+      </VBox>
+      <VBox alignment="TOP_CENTER">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+         </HBox.margin>
+         <Label text="Обложка">
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+         </Label>
+         <ImageView fx:id="coverImageView" fitHeight="290.0" fitWidth="200.0" focusTraversable="true"
+                    pickOnBounds="true" preserveRatio="true">
+            <viewport>
+               <Rectangle2D/>
+            </viewport>
+            <Image url="@images/54828.png"/>
+         </ImageView>
+         <Button mnemonicParsing="false" onAction="#onChooseCover" text="Выбрать...">
+            <VBox.margin>
+               <Insets top="5.0"/>
+            </VBox.margin>
+         </Button>
+      </VBox>
+   </HBox>
+   <HBox alignment="TOP_RIGHT">
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </VBox.margin>
+      <Button mnemonicParsing="false" onAction="#onSave" text="Сохранить">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0"/>
+         </HBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onCancel" text="Отмена"/>
+   </HBox>
+</VBox>

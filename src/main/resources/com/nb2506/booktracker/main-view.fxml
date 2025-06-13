@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nb2506.booktracker.MainController">
+   <AnchorPane prefHeight="395.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.2744360902255639" prefHeight="450.0" prefWidth="800.0"
+                 AnchorPane.rightAnchor="0.0">
+         <VBox prefHeight="200.0" prefWidth="100.0">
+            <HBox prefHeight="24.0" prefWidth="216.0">
+               <VBox prefHeight="50.0" prefWidth="216.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="191.0" layoutY="4.0"
+                                pickOnBounds="true" preserveRatio="true">
+                        <effect>
+                           <Blend/>
+                        </effect>
+                        <Image url="@images/icons8-лупа-30.png"/>
+                     </ImageView>
+                     <TextField fx:id="searchField" blendMode="MULTIPLY" prefHeight="25.0"
+                                prefWidth="216.0"/>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="25.0" prefWidth="46.0">
+                     <ImageView fitHeight="18.0" fitWidth="17.0" layoutX="180.0" layoutY="4.0"
+                                pickOnBounds="true" preserveRatio="true">
+                        <effect>
+                           <Blend/>
+                        </effect>
+                        <Image url="@images/icons8-фильтр-50.png"/>
+                     </ImageView>
+                     <ComboBox fx:id="genreFilterComboBox" blendMode="MULTIPLY"
+                               onAction="#onGenreFilterChanged" prefHeight="25.0" prefWidth="216.0"/>
+                  </AnchorPane>
+               </VBox>
+            </HBox>
+            <ListView fx:id="listViewBook" accessibleText="sss" prefHeight="355.0" prefWidth="216.0"/>
+            <GridPane prefHeight="78.0" prefWidth="216.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+               </VBox.margin>
+               <Button alignment="CENTER" mnemonicParsing="false" onAction="#onOpenButton" prefWidth="100.0"
+                       text="Открыть">
+                  <opaqueInsets>
+                     <Insets/>
+                  </opaqueInsets>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#onEditItem" prefWidth="100.0" text="Редактировать"
+                       GridPane.rowIndex="1"/>
+               <Button alignment="CENTER" mnemonicParsing="false" onAction="#onAddBookItem"
+                       prefWidth="100.0" text="Новая книга" GridPane.columnIndex="1">
+                  <opaqueInsets>
+                     <Insets/>
+                  </opaqueInsets>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#onDeleteButton" prefWidth="100.0" text="Удалить"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+         </VBox>
+         <Pane layoutX="5.0" layoutY="5.0" prefHeight="252.0" prefWidth="576.0"
+               SplitPane.resizableWithParent="false">
+            <padding>
+               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
+            </padding>
+            <VBox prefHeight="236.0" prefWidth="348.0">
+               <HBox prefHeight="27.0" prefWidth="338.0">
+                  <Label text="Название книги:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="titleBook">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox prefHeight="7.0" prefWidth="348.0">
+                  <Label text="Автор:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="bookAuthorLabel">
+                     <HBox.margin>
+                        <Insets/>
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox prefHeight="20.0" prefWidth="348.0">
+                  <Label text="Год публикации:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="yearLabel">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox prefHeight="16.0" prefWidth="348.0">
+                  <Label text="Количество страниц:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="pagesLabel">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox prefHeight="0.0" prefWidth="348.0">
+                  <Label text="Оценка:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="ratingLabel">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox prefHeight="0.0" prefWidth="348.0">
+                  <Label text="Жанры:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <VBox fx:id="genresContainer" prefHeight="27.0" prefWidth="143.0"/>
+               </HBox>
+               <HBox layoutX="10.0" layoutY="118.0" prefHeight="0.0" prefWidth="348.0">
+                  <Label text="Текущая страница:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <Label fx:id="currentPageLabel">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+               </HBox>
+               <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="348.0">
+                  <Label text="Прогресс чтения">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </padding>
+                  </Label>
+                  <ProgressBar fx:id="readProgressBar" prefWidth="200.0" progress="0.0"/>
+                  <Label fx:id="progressLabel" text="0%" textOverrun="CLIP">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="5.0"/>
+                     </HBox.margin>
+                  </Label>
+               </HBox>
+            </VBox>
+            <ImageView fx:id="coverImageView" accessibleHelp="Нажмите чтоб добавить изображение"
+                       fitHeight="280.0" fitWidth="200.0" layoutX="350.0" layoutY="14.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <viewport>
+                  <Rectangle2D/>
+               </viewport>
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+               <Image url="@images/54828.png"/>
+            </ImageView>
+         </Pane>
+      </SplitPane>
+   </AnchorPane>
+</VBox>
