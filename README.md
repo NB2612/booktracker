@@ -7,7 +7,48 @@
 Каждый класс должен иметь только одну ответственность и одну причину для изменения.
 
 В проекте класс `BookRepository` отвечает только за операции с данными книг — добавление, удаление, поиск.  
+```
+public interface BookRepository {
+    void insert(Book book);
+    void update(Book book);
+    void delete(int id);
+}
 Если объединить логику UI и работу с данными, например в `MainController`, класс станет сложным и нарушит SRP.
+
+```MainController.java
+ private void onDeleteButton() {
+Book selectedBook = getSelectedBook();
+        if (selectedBook == null) {
+            showWarning("Удаление книги", "Пожалуйста, выберите книгу для удаления.");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Подтверждение удаления");
+        alert.setHeaderText("Вы действительно хотите удалить книгу \"" + selectedBook.getTitle() + "\"?");
+        alert.setContentText("Это действие необратимо.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            DatabaseHelper.deleteBookById(selectedBook.getId());
+            updateListViewItems();
+            clearBookDetails();
+        }
+}
+public static void deleteBookById(int id) {
+        String sql = "DELETE FROM books WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 ### Open/Closed Principle (Принцип открытости/закрытости)
 
